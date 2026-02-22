@@ -1,0 +1,50 @@
+# Pre-commit hooks configuration
+# Detects secrets and enforces code quality
+
+repos:
+  # Secret detection using detect-secrets
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: |
+          (?x)^(
+            .*\.secrets\.baseline|
+            .*\.lock|
+            .*package-lock\.json|
+            .*yarn\.lock|
+            .*\.log|
+            .*\.min\.js|
+            .*\.min\.css|
+            .*\.map$
+          )
+
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: |
+          (?x)^(
+            .*\.lock|
+            .*\.min\.js|
+            .*\.min\.css|
+            .*\.map$
+          )
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+
+  # Additional secret scanning with gitleaks (if available)
+  # Uncomment if you want to use gitleaks as well
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.22.0
+    hooks:
+      - id: gitleaks
