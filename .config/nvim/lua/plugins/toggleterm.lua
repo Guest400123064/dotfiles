@@ -22,10 +22,8 @@ return {
     },
     {
       "<leader>ft",
-      function()
-        vim.cmd("TermNew dir=" .. vim.fn.fnameescape(vim.loop.cwd()))
-      end,
-      desc = "New terminal (cwd)",
+      "<cmd>TermSelect<cr>",
+      desc = "Term select",
       mode = { "n", "t" },
     },
     {
