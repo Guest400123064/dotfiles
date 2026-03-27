@@ -16,23 +16,17 @@ return {
     },
     {
       "<C-_>",
-      "<cmd>ToggleTerm<cr>",
-      desc = "Toggle floating terminal",
+      function()
+        local root = require("lazyvim.util").root()
+        vim.cmd("TermNew dir=" .. vim.fn.fnameescape(root))
+      end,
+      desc = "New terminal (root)",
       mode = { "n", "t" },
     },
     {
       "<leader>ft",
       "<cmd>TermSelect<cr>",
       desc = "Term select",
-      mode = { "n", "t" },
-    },
-    {
-      "<leader>fT",
-      function()
-        local root = require("lazyvim.util").root()
-        vim.cmd("TermNew dir=" .. vim.fn.fnameescape(root))
-      end,
-      desc = "New terminal (root)",
       mode = { "n", "t" },
     },
   },
